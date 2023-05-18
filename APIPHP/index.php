@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerencimento de clubes</title>
     <!-- <link rel="sortcut icon" href="" type="image/x-icon"> -->
-    <link rel="stylesheet" href="./Css/geral.css?v3<?=rand(1,9999)?>">
-    <script type="text/javascript" src="./JavaScript/consumoAPI.js"></script>
+    <link rel="stylesheet" href="./Css/geral.css?v1<?=rand(1,9999)?>">
+    <script type="text/javascript" src="./JavaScript/consumoAPI.js?v1<?=rand(1,9999)?>"></script>
     <script
         src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -15,6 +15,14 @@
     </script>
 </head>
 <body>
+    <?php
+    // busca todos os registros de clubes do banco
+        $clubes = file_get_contents('http://localhost/gerenciamento-de-recursos-financeiros-de-clubes/APIPHP/public_html/api/user/clube');
+        $clubes = json_decode($clubes); 
+
+        $recursos = file_get_contents('http://localhost/gerenciamento-de-recursos-financeiros-de-clubes/APIPHP/public_html/api/user/recurso');
+        $recursos = json_decode($recursos); 
+    ?>
     <div class="top">
         <span class="title">Gerenciamento de recursos de clubes</span>
     </div>
@@ -31,20 +39,14 @@
                 <th>ID</th>
                 <th>Clube</th>
                 <th>Saldo</th>
-                <th>Informações</th>
             </tr>
-            <tr>
-                <td>1</td>
-                <td>Clube A</td>
-                <td>2000,00</td>
-                <td>Infos</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Clube B</td>
-                <td>4000,00</td>
-                <td>Infos</td>
-            </tr>
+            <?php foreach($clubes->data as $clube):?>
+                <tr>
+                    <td><?=$clube->id?></td>
+                    <td><?=$clube->clube?></td>
+                    <td>R$ <?=number_format($clube->saldo_disponivel, 2, ',', '.')?></td>
+                </tr>
+            <?php endforeach;?>
         </table>
     </div>
     <div class="low">
@@ -59,10 +61,14 @@
             <label for="nome">Nome do clube</label> <br>
             <input type="text" name="nome" id="nome"> <br>
 
-            <label for="nome">Saldo</label> <br>
+            <label for="saldo">Saldo</label> <br>
             <input type="text" name="nome" id="saldo"> <br>
 
-            <button class="btn">Cadastrar</button>
+            <div class="campos_invalid">
+
+            </div>
+
+            <button class="btn" onclick="cadastrarClube()">Cadastrar</button>
             <button class="btn btn-cancelar" onclick="cancelarAction('.modal_cadastrar')">Cancelar</button>
         </div>
 
@@ -77,14 +83,15 @@
 
             <label for="recurso">Recurso do clube</label> <br>
             <select name="recurso" id="recurso">
-                <option value="a">Clube a</option>
-                <option value="b">Clube b</option>
+                <?php foreach($recursos->data as $recurso):?>
+                    <option value="<?=$recurso->id?>"><?=$recurso->recurso?></option>
+                <?php endforeach;?>
             </select> <br>
 
             <label for="nome">Saldo</label> <br>
             <input type="text" name="nome" id="saldo"> <br>
 
-            <button class="btn">Consumir recurso</button>
+            <button class="btn" onclick="realizarConsumo()">Consumir recurso</button>
             <button class="btn" onclick="cancelarAction('.modal_consumir')">Cancelar</button>
         </div>
 
@@ -100,6 +107,9 @@
 
     </div>
 
-    
+    <script>
+        var recursos = <?=json_encode($recursos)?>;
+        var clubes = <?=json_encode($clubes)?>;
+    </script>
 </body>
 </html>

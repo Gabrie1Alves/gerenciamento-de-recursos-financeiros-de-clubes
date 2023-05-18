@@ -8,3 +8,9 @@ Projeto feito com PHP 7.4.30. Além do PHP, foram utilizadas as seguintes tecnol
 - Como utilizei o XAMMP, utilizei tambem o serviço **MySQL** fornecido pelo mesmo, para ter acesso ao **PHPmyAdmin**;
 - Após isso basta clonar o projeto na pasta **htdocs** localizada no diretório do **XAMPP**, e ativar os dois módulos do mesmo, **Apache e MySQL**;
 - Feito, para acessar o projeto em um navegador basta acessar a url: **http://localhost/gerenciamento-de-recursos-financeiros-de-clubes/apiphp/**.
+
+## Extras
+
+- O projeto possui validações javascript e php para reforço da segurança e para ser amigável com o usuário;
+- Todas as ações como cadastro e updates são feito com javascript, logo todas as ações ocorrem em uma  única página;
+- O projeto é responsivo para todos os dispositivos móveis do google;
