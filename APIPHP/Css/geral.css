@@ -1,0 +1,89 @@
+body{
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.btn{
+    width: 200px;
+    margin-right: 20px;
+    background-color:bisque;
+    padding: 5px 0;
+    border-radius: 20px;
+    margin-top: 20px;
+}
+.btn:hover{
+    cursor: pointer;
+}
+.d-none{
+    display: none;
+}
+.d-block{
+    display: block;
+}
+
+h2{
+    text-align: center;
+}
+/* Topo */
+.top{
+    display: block;
+    width: 100%;
+    background-color: aquamarine;
+    color: black;
+    font-size: 1.8em;
+    padding: 20px 0;
+}
+
+/* Rodapé */
+.low{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: aquamarine;
+    color: black;
+    font-size: 1.2em;
+    text-align: center;
+    padding: 20px 0;
+}
+
+/* Lista de clubes */
+
+.club_list .title{
+    font-weight: normal;
+    border-bottom: 1px solid black;
+    margin: 0px;
+    padding: 20px 0px;
+}
+
+.club_list table{
+    width: 50%;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Modais */
+.modal{
+    position: absolute;
+    z-index: 100;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    border: solid 1px black;
+    padding: 20px;
+}
+.modal input{
+    width: 100%;
+    margin: 5px 0 ;
+}
+.modal-background{
+    position: absolute;
+    top: 0px;
+    z-index: 99;
+    width: 100%;
+    min-height: 100%;
+    background: rgba(71, 81, 86, 0.95);
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+}
