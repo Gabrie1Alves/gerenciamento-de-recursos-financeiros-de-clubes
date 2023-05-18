@@ -27,12 +27,10 @@
          
             $data = explode("--", $data);
 
-            
+            $erro = "";
             if($data[0] == "insert"){
                array_shift($data);
 
-
-               $erro = "";
                if(strlen($data[0]) < 3){
                   $erro += "O nome do clube deve conter ao menos 3 caracteres!! <br>";
                }
@@ -59,13 +57,58 @@
                }
 
             }else if($data[0] == "update"){
-                array_shift($data);
-                return Clube::update($data);
+               array_shift($data);
+
+               
+
+               if(strlen($data[2]) < 0){
+                  $erro += "O saldo deve ser positivo!! <br>";
+               }
+
+               if(!preg_match('/^[0-9]+(\.[0-9]+)?$/', $data[1])){
+                  $erro += "O saldo do clube deve conter somente números e no máximo 1 caracter '.' ou ','!! <br>";
+               }
+
+               $clubes = Clube::selectAllClubes();
+               $recursos = Recurso::selectAllRecursos();
+
+               foreach($clubes as $clube){
+                  if($clube['id'] == $data[0]){
+                     if($clube['saldo_disponivel'] - $data[2] < 0){
+                        $erro += "Saldo do clube não é suficiente!! <br>";
+                     }else{
+                        $saldoClube = $clube['saldo_disponivel'] - $data[2];
+                     }
+                  }
+               }
+
+               foreach($recursos as $recurso){
+                  if($recurso['id'] == $data[0]){
+                     if($recurso['saldo_disponivel'] - $data[2] < 0){
+                        $erro += "Saldo dos recursos não é suficiente!! <br>";
+                     }else{
+                        $saldoRecurso = $recurso['saldo_disponivel'] - $data[2];
+                     }
+                  }
+               }
+
+
+               if($erro == ""){
+                  $returnClube = Clube::update($data[0], $saldoClube);
+
+                  $returnRecurso = Recurso::updateRecurso($data[1], $saldoRecurso);
+                  if($returnClube == 1 && $returnRecurso == 1){
+                     return "Atualização de valores feita!!";
+                  }else{
+                     throw new \Exception("Falha ao atualizar recursos!");
+                  }
+               }else{
+                  return $erro;
+               }
+               return Clube::update($data);
             }
             return $data;
-            //return Clube::busca($data);
+
         }
 
-
-        
     }

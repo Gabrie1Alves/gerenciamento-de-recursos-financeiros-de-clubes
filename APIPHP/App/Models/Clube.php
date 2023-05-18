@@ -46,26 +46,22 @@
         /**
          * Função que realiza a atualização de valores no banco
          */
-        public static function update($data)
+        public static function update($idClube, $saldo)
         {
             $connPdo = new \PDO(DBDRIVE.': host='.DBHOST.'; dbname='.DBNAME, DBUSER, DBPASS);
 
-            $sql = 'UPDATE '.self::$table.' 
-                SET nome = :no, marca = :ma, ano = :an, descricao = :de, vendido = :ve
+            $sql = 'UPDATE '.self::$clube_tab.' 
+                SET saldo_disponivel = :sd
                 WHERE id = :id';
             $stmt = $connPdo->prepare($sql);
-            $stmt->bindValue(':id', $data[0]);
-            $stmt->bindValue(':no', $data[1]);
-            $stmt->bindValue(':ma', $data[2]);
-            $stmt->bindValue(':an', $data[3]);
-            $stmt->bindValue(':de', $data[4]);
-            $stmt->bindValue(':ve', $data[5]);
+            $stmt->bindValue(':id', $idClube);
+            $stmt->bindValue(':sd', $saldo);
             $stmt->execute();
 
             if ($stmt->rowCount() > 0) {
-                return 'Veículo atualizado com sucesso!';
+                return 1;
             } else {
-                throw new \Exception("Falha ao atualizar veículo!");
+                throw new \Exception("Falha ao atualizar saldo do clube!");
             }
         }
     }

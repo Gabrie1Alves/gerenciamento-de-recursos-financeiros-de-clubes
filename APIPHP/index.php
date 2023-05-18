@@ -77,8 +77,9 @@
 
             <label for="nome">Nome do clube</label> <br>
             <select name="nome" id="nome">
-                <option value="a">Clube a</option>
-                <option value="b">Clube b</option>
+                <?php foreach($clubes->data as $clube):?>
+                    <option value="<?=$clube->id?>"><?=$clube->clube?></option>
+                <?php endforeach;?>
             </select> <br>
 
             <label for="recurso">Recurso do clube</label> <br>
@@ -90,7 +91,9 @@
 
             <label for="nome">Saldo</label> <br>
             <input type="text" name="nome" id="saldo"> <br>
-
+            <div class="campos_invalid_consumo">
+                
+            </div>
             <button class="btn" onclick="realizarConsumo()">Consumir recurso</button>
             <button class="btn" onclick="cancelarAction('.modal_consumir')">Cancelar</button>
         </div>

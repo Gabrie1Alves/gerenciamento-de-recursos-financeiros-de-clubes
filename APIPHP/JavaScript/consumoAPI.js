@@ -42,7 +42,7 @@ function cadastrarClube() {
     //entradas válidas
     if(verifica == ''){
         const infos = `insert--${nome}--${saldo}`;
-        console.log(infos);
+
         fetch("http://localhost/gerenciamento-de-recursos-financeiros-de-clubes/APIPHP/public_html/api/user/"+infos, {
         method: "POST",
         headers: {'Content-Type': 'application/json'}
@@ -66,7 +66,32 @@ function cadastrarClube() {
  * Função para realizar alterações de saldo
  */
 function realizarConsumo() {
+    let nome_id = $('.modal_consumir #nome').val();
+    let recurso_id = $('.modal_consumir #recurso').val();
+    let saldo = $('.modal_consumir #saldo').val().replace(',', '.');;
+    let data = [nome_id, recurso_id, saldo];
 
+    const verifica = verify('update', data);
+
+    if(verifica == ''){
+        const infos = `update--${nome_id}--${recurso_id}--${saldo}`;
+
+        fetch("http://localhost/gerenciamento-de-recursos-financeiros-de-clubes/APIPHP/public_html/api/user/"+infos, {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'}
+        }).then(response => response.json())
+        .then(data => {
+            if(data['status'] == 'sucess'){
+                $('.modal_sucesso').removeClass('d-none');
+                $('.modal_consumir').addClass('d-none');
+            }else{
+                $('.modal_falha').removeClass('d-none');
+                $('.modal_consumir').addClass('d-none');
+            }
+        });
+    }else{
+        $('.campos_invalid_consumo').html(verifica);
+    }
 }
 
 /**
@@ -96,6 +121,29 @@ function verify(action, data){
 
         return erro;
     }else{
+        if(!regex.test(data[2])){
+            erro += 'O saldo que será utilizado do clube deve conter somente números e no máximo 1 caracter "." ou ","!! <br>';
+        }
 
+        if(data[2] < 0){
+            erro += 'O saldo que será utilizado do clube não pode ser negativo!! <br>';
+        }
+
+        clubes.data.forEach(clube => {
+            if(clube['id'] == data[0]){
+                if(parseFloat(clube.saldo_disponivel) - parseFloat(data[2]) < 0){
+                    erro += `O clube ${clube.clube} tem R$ ${clube.saldo_disponivel}, não é possível utilizar R$ ${data[2]}!! <br>`;
+                }
+            }
+        });
+        recursos.data.forEach(recurso => {
+            if(recurso['id'] == data[1]){
+                if(parseFloat(recurso.saldo_disponivel) - parseFloat(data[2]) < 0){
+                    erro += `Existe apenas R$ ${recurso.saldo_disponivel} em recursos disponíveis, não é possível utilizar R$ ${data[2]}!! <br>`;
+                }
+            }
+        });
+
+        return erro;
     }
 }

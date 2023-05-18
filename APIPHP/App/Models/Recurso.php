@@ -25,24 +25,20 @@
         /**
          * Função que realiza a atualização de valores no banco
          */
-        public static function updateRecurso($data)
+        public static function updateRecurso($idRecurso, $saldo)
         {
             $connPdo = new \PDO(DBDRIVE.': host='.DBHOST.'; dbname='.DBNAME, DBUSER, DBPASS);
 
             $sql = 'UPDATE '.self::$recurso_tab.' 
-                SET nome = :no, marca = :ma, ano = :an, descricao = :de, vendido = :ve
+                SET saldo_disponivel = :sd
                 WHERE id = :id';
             $stmt = $connPdo->prepare($sql);
-            $stmt->bindValue(':id', $data[0]);
-            $stmt->bindValue(':no', $data[1]);
-            $stmt->bindValue(':ma', $data[2]);
-            $stmt->bindValue(':an', $data[3]);
-            $stmt->bindValue(':de', $data[4]);
-            $stmt->bindValue(':ve', $data[5]);
+            $stmt->bindValue(':id', $idRecurso);
+            $stmt->bindValue(':sd', $saldo);
             $stmt->execute();
 
             if ($stmt->rowCount() > 0) {
-                return 'Recursos atualizados com sucesso!';
+                return 1;
             } else {
                 throw new \Exception("Falha ao atualizar recursos!");
             }
