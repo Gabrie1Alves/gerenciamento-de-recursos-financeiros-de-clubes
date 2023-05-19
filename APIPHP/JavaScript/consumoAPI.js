@@ -5,7 +5,7 @@ function cadastroModal(){
 
     $('.modal_cadastrar #nome').val('');
     $('.modal_cadastrar #saldo').val('');
-
+    $('.campos_invalid').html('');
     $('.modal_cadastrar, .modal-background').removeClass('d-none');
 
 }
@@ -15,7 +15,7 @@ function consumoModal() {
     $('.modal_consumir #nome').val('');
     $('.modal_consumir #recurso').val('');
     $('.modal_consumir #saldo').val('');
-
+    $('.campos_invalid_consumo').html('');
     $('.modal_consumir, .modal-background').removeClass('d-none');
 
 }
@@ -81,7 +81,6 @@ function realizarConsumo() {
     let data = [nome_id, recurso_id, saldo];
 
     const verifica = verify('update', data);
-    console.log(saldo);
     if(verifica == ''){
         const infos = `update--${nome_id}--${recurso_id}--${saldo}`;
 
@@ -136,6 +135,10 @@ function verify(action, data){
 
         if(data[2] < 0){
             erro += 'O saldo que será utilizado do clube não pode ser negativo!! <br>';
+        }
+
+        if(data[0] == null || data[1] == null){
+            erro += 'É necessário selecionar o nome do clube e o recurso que será utilizado!! <br>';
         }
 
         clubes.data.forEach(clube => {
