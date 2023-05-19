@@ -1,19 +1,26 @@
 body{
     margin: 0px;
-    padding: 0px;
     border: 0px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    padding: 0px;
+    font-family: 'Montserrat', sans-serif;
+    background-color: rgb(239, 241, 245);
 }
 .btn{
     width: 200px;
-    margin-right: 20px;
-    background-color:bisque;
     padding: 5px 0;
-    border-radius: 20px;
-    margin-top: 20px;
+    color: white;
+    font-size: 1.2em;
+    margin: 10px 5px 5px 5px;
+    background-color:black;
+    border: solid black 1px;
+
 }
 .btn:hover{
     cursor: pointer;
+    color: #ff4700;
+    transition: all .3s;
+    border-radius: 12px;
+    transform: scale(1.05);
 }
 .d-none{
     display: none;
@@ -25,59 +32,93 @@ body{
 h2{
     text-align: center;
 }
+
+.container{
+    
+    height: 100%;
+    max-width: 100%;
+    padding: 10px 200px;
+}
+
+.danger-color{
+    color: rgb(190, 48, 48);
+}
+.t-center{
+    text-align: center;
+}
 /* Topo */
 .top{
     display: block;
-    width: 100%;
-    background-color: aquamarine;
-    color: black;
+    color: white;
+    font-weight: 100;
     font-size: 1.8em;
-    padding: 20px 0;
+    text-align: center;
+    padding: 20px 200px;
+    background-color: black ;
+}
+.top:hover{
+    color:#ff4700;
+    transition: all .3s;
+}
+.top img{
+    animation: bola-topo 3s 1;
+}
+
+.actions{
+    text-align: center;
 }
 
 /* Rodapé */
 .low{
-    position: fixed;
-    bottom: 0;
     left: 0;
+    bottom: 0;
     width: 100%;
-    background-color: aquamarine;
-    color: black;
+    color: white;
+    position: fixed;
+    padding: 20px 0;
     font-size: 1.2em;
     text-align: center;
-    padding: 20px 0;
+    background-color: black;
 }
 
 /* Lista de clubes */
 
 .club_list .title{
-    font-weight: normal;
-    border-bottom: 1px solid black;
     margin: 0px;
-    padding: 20px 0px;
+    text-align: center;
+    font-weight: normal;
+    padding: 40px 0px 20px 0px ;
+    border-bottom: 1px solid black;
 }
 
 .club_list table{
-    width: 50%;
-    text-align: center;
+    width: 100%;
+    margin: auto;
     padding: 20px;
+    text-align: center;
+}
+table tr:hover{
+    background-color: rgb(177, 180, 182);
 }
 
 /* Modais */
 .modal{
-    position: absolute;
-    z-index: 100;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    width: 400px;
-    border: solid 1px black;
+    z-index: 100;
+    width: 425px;
     padding: 20px;
+    position: absolute;
+    border: solid 1px black;
+    background-color: white;
+    transform: translate(-50%, -50%);
 }
-.modal input{
+.modal input, select{
     width: 100%;
-    margin: 5px 0 ;
+    margin: 5px 0;
+    padding: 3px 0;
 }
+
 .modal-background{
     position: absolute;
     top: 0px;
@@ -86,4 +127,69 @@ h2{
     min-height: 100%;
     background: rgba(71, 81, 86, 0.95);
     box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+}
+
+/* Responsividade */
+
+@media screen and (max-width:850px){
+    .container{
+        padding: 10px 50px;
+    }
+    .top{
+        padding: 20px 50px;
+    }
+}
+
+@media screen and (max-width:620px){
+    .container{
+        padding: 10px 10px;
+    }
+    .top{
+        padding: 20px 10px;
+    }
+    .modal{
+        width: 250px;
+    }
+    .btn{
+        width: 100%;
+        margin: 10px 0 0 0;
+    }
+}
+/*  */
+@media screen and (max-width:300px){
+    .container{
+        padding: 10px 10px;
+    }
+    .top{
+        padding: 20px 10px;
+    }
+    .modal{
+        width: 220px;
+    }
+    .btn{
+        width: 100%;
+        margin: 10px 0 0 0;
+    }
+}
+
+
+/* Animações */
+
+@keyframes bola-topo {
+    0% {
+        rotate: 0;
+      transform: scale(1);
+    }
+    25% {
+        rotate: 360deg;
+      transform: scale(1.5);
+    }
+    50% {
+        rotate: 720;
+      transform: scale(1);
+    }
+    100% {
+        rotate: 1440;
+        transform: scale(1);
+    }
 }

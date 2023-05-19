@@ -58,7 +58,8 @@
 
             }else if($data[0] == "update"){
                array_shift($data);
-
+               $saldoClube = 0;
+               $saldoRecurso = 0;
                
 
                if(strlen($data[2]) < 0){
@@ -83,7 +84,7 @@
                }
 
                foreach($recursos as $recurso){
-                  if($recurso['id'] == $data[0]){
+                  if($recurso['id'] == $data[1]){
                      if($recurso['saldo_disponivel'] - $data[2] < 0){
                         $erro += "Saldo dos recursos não é suficiente!! <br>";
                      }else{
@@ -97,6 +98,7 @@
                   $returnClube = Clube::update($data[0], $saldoClube);
 
                   $returnRecurso = Recurso::updateRecurso($data[1], $saldoRecurso);
+
                   if($returnClube == 1 && $returnRecurso == 1){
                      return "Atualização de valores feita!!";
                   }else{

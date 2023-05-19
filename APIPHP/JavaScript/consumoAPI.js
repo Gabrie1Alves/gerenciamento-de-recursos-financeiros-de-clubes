@@ -2,11 +2,20 @@
  * Abre modal de cadastro de um novo clube ou realizar algum consumo
  */
 function cadastroModal(){
+
+    $('.modal_cadastrar #nome').val('');
+    $('.modal_cadastrar #saldo').val('');
+
     $('.modal_cadastrar, .modal-background').removeClass('d-none');
 
 }
 
 function consumoModal() {
+
+    $('.modal_consumir #nome').val('');
+    $('.modal_consumir #recurso').val('');
+    $('.modal_consumir #saldo').val('');
+
     $('.modal_consumir, .modal-background').removeClass('d-none');
 
 }
@@ -68,11 +77,11 @@ function cadastrarClube() {
 function realizarConsumo() {
     let nome_id = $('.modal_consumir #nome').val();
     let recurso_id = $('.modal_consumir #recurso').val();
-    let saldo = $('.modal_consumir #saldo').val().replace(',', '.');;
+    let saldo = $('.modal_consumir #saldo').val().replace(',', '.');
     let data = [nome_id, recurso_id, saldo];
 
     const verifica = verify('update', data);
-
+    console.log(saldo);
     if(verifica == ''){
         const infos = `update--${nome_id}--${recurso_id}--${saldo}`;
 

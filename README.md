@@ -14,3 +14,4 @@ Projeto feito com PHP 7.4.30. Além do PHP, foram utilizadas as seguintes tecnol
 - O projeto possui validações javascript e php para reforço da segurança e para ser amigável com o usuário;
 - Todas as ações como cadastro e updates são feito com javascript, logo todas as ações ocorrem em uma  única página;
 - O projeto é responsivo para todos os dispositivos móveis do google;
+- Neste link contém um texte demonstrando as funcionalidades e validações da aplicação: https://www.awesomescreenshot.com/video/17538461?key=d1979baa0655d234172c419de62bcc0a

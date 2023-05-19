@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerencimento de clubes</title>
-    <!-- <link rel="sortcut icon" href="" type="image/x-icon"> -->
+    <link rel="sortcut icon" href="./img/bola.png" type="image/x-icon">
     <link rel="stylesheet" href="./Css/geral.css?v1<?=rand(1,9999)?>">
     <script type="text/javascript" src="./JavaScript/consumoAPI.js?v1<?=rand(1,9999)?>"></script>
     <script
@@ -16,7 +16,7 @@
 </head>
 <body>
     <?php
-    // busca todos os registros de clubes do banco
+    // busca todos os registros de clubes e recursos do banco
         $clubes = file_get_contents('http://localhost/gerenciamento-de-recursos-financeiros-de-clubes/APIPHP/public_html/api/user/clube');
         $clubes = json_decode($clubes); 
 
@@ -24,30 +24,35 @@
         $recursos = json_decode($recursos); 
     ?>
     <div class="top">
-        <span class="title">Gerenciamento de recursos de clubes</span>
+        <span class="title">
+            <img src="./img/bola.png" alt="" width="20px">
+            Gerenciamento de recursos de clubes
+        </span>
     </div>
 
-    <div class="actions">
-        <button class="btn" onclick="cadastroModal()">Cadastrar Clube</button>
-        <button class="btn" onclick="consumoModal()">Consumir recurso</button>
-    </div>
-        
-    <div class="club_list">
-        <h1 class="title">Lista de clubes</h1>
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>Clube</th>
-                <th>Saldo</th>
-            </tr>
-            <?php foreach($clubes->data as $clube):?>
+    <div class="container">
+        <div class="actions">
+            <button class="btn" onclick="cadastroModal()">Cadastrar Clube</button>
+            <button class="btn" onclick="consumoModal()">Consumir recurso</button>
+        </div>
+            
+        <div class="club_list">
+            <h1 class="title">Lista de clubes</h1>
+            <table>
                 <tr>
-                    <td><?=$clube->id?></td>
-                    <td><?=$clube->clube?></td>
-                    <td>R$ <?=number_format($clube->saldo_disponivel, 2, ',', '.')?></td>
+                    <th>ID</th>
+                    <th>Clube</th>
+                    <th>Saldo</th>
                 </tr>
-            <?php endforeach;?>
-        </table>
+                <?php foreach($clubes->data as $clube):?>
+                    <tr>
+                        <td><?=$clube->id?></td>
+                        <td><?=$clube->clube?></td>
+                        <td>R$ <?=number_format($clube->saldo_disponivel, 2, ',', '.')?></td>
+                    </tr>
+                <?php endforeach;?>
+            </table>
+        </div>
     </div>
     <div class="low">
         © Gerenciamento de recursos de clubes - 2023
@@ -64,7 +69,7 @@
             <label for="saldo">Saldo</label> <br>
             <input type="text" name="nome" id="saldo"> <br>
 
-            <div class="campos_invalid">
+            <div class="campos_invalid danger-color">
 
             </div>
 
@@ -91,19 +96,19 @@
 
             <label for="nome">Saldo</label> <br>
             <input type="text" name="nome" id="saldo"> <br>
-            <div class="campos_invalid_consumo">
-                
+            <div class="campos_invalid_consumo danger-color">
+
             </div>
             <button class="btn" onclick="realizarConsumo()">Consumir recurso</button>
             <button class="btn" onclick="cancelarAction('.modal_consumir')">Cancelar</button>
         </div>
 
-        <div class="modal modal_sucesso d-none">
+        <div class="modal modal_sucesso d-none t-center">
             <h2 class="title">Sucesso!</h2>
             <button class="btn" onclick="refresh()">Fechar</button>
         </div>
 
-        <div class="modal modal_falha d-none">
+        <div class="modal modal_falha d-none t-center">
             <h2 class="title">Algo deu errado! Tente novamente.</h2>
             <button class="btn" onclick="refresh()">Fechar</button>
         </div>
